@@ -51,7 +51,7 @@ glue_jobs = [
       "--s3_output_parquet"         = ""
       "--s3_output_query"           = ""
       "--table_basic"               = ""
-      "--table_name"                = "parsedfiles"
+      "--table_name"                = ""
       "--topics_table_name"         = ""
     }
     tags = {
@@ -82,7 +82,7 @@ glue_jobs = [
       "--database_name"             = ""
       "--limit_query"               = "2000"
       "--nlp_table_name"            = ""
-      "--raw_table_name"            = "rawfilesanalytics"
+      "--raw_table_name"            = ""
       "--s3_agent_names"            = "v"
       "--s3_agent_words"            = ""
       "--s3_output_error_log"       = "" 
@@ -108,10 +108,10 @@ glue_jobs = [
     script_location     = ""
     python_version      = "3"
     job_bookmark_option = "job-bookmark-enable"
-    connections         = ["redshift-connection"]
+    connections         = [""]
     default_arguments = {
       "--source_path"     = ""
-      "--redshift_schema" = "analytics"
+      "--redshift_schema" = ""
       "--enable-metrics"  = "true"
       "--conf"            = "spark.driver.memory=5g"
       # Nuevas características
@@ -121,7 +121,7 @@ glue_jobs = [
       "--limit_query": "500",
       "--llm_model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0",
       "--llm_table_name": "",
-      "--raw_table_name": "rawfilesanalytics",
+      "--raw_table_name": "",
       "--s3_agent_names": "",
       "--s3_output_error_log": "",
       "--s3_output_md": "",
