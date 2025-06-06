@@ -214,7 +214,7 @@ resource "aws_iam_policy" "glue_job_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "arn:aws:s3:::ban-useast1-dev-edlh-raw-bucket-in-560787199965/*"
+        Resource = "arn:aws:s3:::ban-useast1-tu-bucket/*"
         Effect = "Allow"
       },
       {
@@ -223,7 +223,7 @@ resource "aws_iam_policy" "glue_job_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "arn:aws:s3:::pca-analized-2248/*"
+        Resource = "arn:aws:s3::tu-bucket/*"
         Effect = "Allow"
       },
       {
@@ -232,7 +232,7 @@ resource "aws_iam_policy" "glue_job_policy" {
           "s3:PutObject",
           "s3:DeleteObject"
         ]
-        Resource = "arn:aws:s3:::ban-useast1-dev-edlh-staging-bucket-in-560787199965/*"
+        Resource = "arn:aws:s3:::tu-bucket/*"
         Effect = "Allow"
       },
       {
@@ -241,8 +241,8 @@ resource "aws_iam_policy" "glue_job_policy" {
           "s3:PutObject"
         ]
         Resource = [
-          "arn:aws:s3:::ban-us-east-1-dev-pocedlh-script-bucket-in-560787199965/*",
-          "arn:aws:s3:::ban-useast1-dev-edlh-scripts-bucket-in-560787199965/*"
+          "arn:aws:s3:::tu-bucket/*",
+          "arn:aws:s3:::tu-bucket/*"
         ]
         Effect = "Allow"
       },
