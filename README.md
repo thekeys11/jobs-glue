@@ -225,9 +225,3 @@ job_triggers = [
 - Las claves KMS deben existir y tener las políticas adecuadas para ser utilizadas por Glue.
 - Para conexiones a bases de datos (definidas en connections), asegúrese de crear primero las conexiones en el AWS Glue Console o mediante otro módulo de Terraform.
 - Los job_names en la configuración de job_triggers deben coincidir exactamente con los nombres de los jobs definidos en glue_jobs (el módulo añade automáticamente el prefijo).
-
-
-## Importante
-Este módulo de Glue fue creado por **Escala24x7**.
-
-Si necesitas apoyo o tienes alguna consulta sobre este módulo, no dudes en contactarnos.
