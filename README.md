@@ -9,7 +9,7 @@ Este módulo permite desplegar múltiples AWS Glue Jobs con configuraciones de s
 - Configuración de seguridad con cifrado KMS para datos en reposo y tránsito.
 - Rol IAM con política de permisos robusta que incluye:
     - Acceso a servicios glue, s3, ec2, iam, cloudwatch, cloudtrail, lakeformation.
-    - Permisos específicos para operaciones S3 en buckets designados (scripts, datos, temporales, y buckets específicos de la solución como ban-useast1-dev-edlh-raw-bucket, pca-analized-2248, etc.).
+    - Permisos específicos para operaciones S3 en buckets designados (scripts, datos, temporales, y buckets específicos de la solución).
     - Permisos iam:PassRole para que Glue pueda asumir otros roles.
     - Permisos de creación y eliminación de tags en recursos EC2 relevantes para Glue.**
 - Soporte para desencadenadores (triggers) programados y condicionales con definición explícita de condiciones de éxito/fallo de jobs previos.
@@ -29,108 +29,108 @@ Este módulo permite desplegar múltiples AWS Glue Jobs con configuraciones de s
 ```hcl
 glue_jobs = [
   {
-    name                = "etl-job-pca-anlized"
+    name                = ""
     glue_version        = "4.0"
     worker_type         = "G.1X"
     number_of_workers   = 10
     timeout             = 60
     max_retries         = 1
     command_name        = "glueetl"
-    script_location     = "solicitar a william"
+    script_location     = ""
     python_version      = "3"
     job_bookmark_option = "job-bookmark-enable"
     default_arguments = {
       "--source_database" = "source_db"
-      "--target_path"     = "s3://my-data-processing-bucket/raw/"
+      "--target_path"     = ""
       "--enable-metrics"  = "true"
       "--conf"            = "spark.driver.memory=5g"
-      # Nuevas características para etl-job-pca-anlized
+      # Nuevas características
       "--additional-python-modules" = "langchain==0.3.2,langchain_aws==0.2.2"
-      "--database_name"             = "pca_ce"
-      "--llm_model_id"              = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-      "--s3_output_parquet"         = "s3://ban-useast1-dev-pca-out-818667456472-b/pca_parquet_results/pca-procesed-basics/"
-      "--s3_output_query"           = "s3://ban-useast1-dev-pca-out-818667456472-b/athena-queries/"
-      "--table_basic"               = "tbl_pca_analyzed_basics"
+      "--database_name"             = ""
+      "--llm_model_id"              = ""
+      "--s3_output_parquet"         = ""
+      "--s3_output_query"           = ""
+      "--table_basic"               = ""
       "--table_name"                = "parsedfiles"
-      "--topics_table_name"         = "s3://ban-useast1-dev-pca-out-818667456472-b/pca-support-files/Topics.csv"
+      "--topics_table_name"         = ""
     }
     tags = {
-      DataFlow = "pca"
+      DataFlow = ""
       Stage    = "extract"
     }
   },
   {
-    name                = "etl-job-generate-fuzzy-nlp"
+    name                = ""
     glue_version        = "4.0"
     worker_type         = "G.1X"
     number_of_workers   = 10
     timeout             = 90
     max_retries         = 2
     command_name        = "glueetl"
-    script_location     = "solicitar a william"
+    script_location     = ""
     python_version      = "3"
     job_bookmark_option = "job-bookmark-enable"
     max_concurrent_runs = 1
     default_arguments = {
-      "--source_path"    = "s3://my-data-processing-bucket/raw/"
-      "--target_path"    = "s3://my-data-processing-bucket/transformed/"
+      "--source_path"    = ""
+      "--target_path"    = ""
       "--enable-metrics" = "true"
       "--conf"           = "spark.driver.memory=5g"
-      # Nuevas características para etl-job-generate-fuzzy-nlp
+      # Nuevas características
       "--additional-python-modules" = "markdown==3.7,fuzzywuzzy==0.18.0"
       "--batch_size"                = "50"
-      "--database_name"             = "pca_ce"
+      "--database_name"             = ""
       "--limit_query"               = "2000"
-      "--nlp_table_name"            = "tbl_pca_analyzed_nlp"
+      "--nlp_table_name"            = ""
       "--raw_table_name"            = "rawfilesanalytics"
-      "--s3_agent_names"            = "s3://ban-useast1-dev-pca-out-818667456472-b/pca-support-files/AgentNames.csv"
-      "--s3_agent_words"            = "s3://ban-useast1-dev-pca-out-818667456472-b/pca-support-files/AgentSearchWords.csv"
-      "--s3_output_error_log"       = "https://ban-useast1-dev-pca-out-818667456472-b/pca_parquet_results/pca-procesed-nlp/logs/" 
+      "--s3_agent_names"            = "v"
+      "--s3_agent_words"            = ""
+      "--s3_output_error_log"       = "" 
       # Verifica si es S3 o HTTPS
-      "--s3_output_md"              = "s3://ban-useast1-dev-pca-out-818667456472-b/pca-procesed-mds/md_agent/"
-      "--s3_output_parquet"         = "s3://ban-useast1-dev-pca-out-818667456472-b/pca_parquet_results/pca-procesed-nlp/parquet_files/"
-      "--s3_output_query"           = "s3://ban-useast1-dev-pca-out-818667456472-b/athena-queries/"
+      "--s3_output_md"              = ""
+      "--s3_output_parquet"         = ""
+      "--s3_output_query"           = ""
       "--similarity_threshold"      = "90"
     }
     tags = {
-      DataFlow = "pca"
+      DataFlow = ""
       Stage    = "extract"
     }
   },
   {
-    name                = "etl-job-generate-llm_v2"
+    name                = ""
     glue_version        = "4.0"
     worker_type         = "G.1X"
     number_of_workers   = 10
     timeout             = 60
     max_retries         = 1
     command_name        = "glueetl"
-    script_location     = "solicitar a william"
+    script_location     = ""
     python_version      = "3"
     job_bookmark_option = "job-bookmark-enable"
     connections         = ["redshift-connection"]
     default_arguments = {
-      "--source_path"     = "s3://my-data-processing-bucket/transformed/"
+      "--source_path"     = ""
       "--redshift_schema" = "analytics"
       "--enable-metrics"  = "true"
       "--conf"            = "spark.driver.memory=5g"
-      # Nuevas características para etl-job-generate-llm_v2
+      # Nuevas características
       "--additional-python-modules": "langchain==0.3.2,markdown==3.7,langchain_aws==0.2.2,fuzzywuzzy==0.18.0",
       "--batch_size": "100",
-      "--database_name": "pca_ce",
+      "--database_name": "",
       "--limit_query": "500",
       "--llm_model_id": "anthropic.claude-3-5-sonnet-20240620-v1:0",
-      "--llm_table_name": "tbl_pca_analyzed_llm",
+      "--llm_table_name": "",
       "--raw_table_name": "rawfilesanalytics",
-      "--s3_agent_names": "s3://ban-useast1-dev-pca-out-818667456472-b/pca-support-files/AgentNames.csv",
-      "--s3_output_error_log": "s3://ban-useast1-dev-pca-out-818667456472-b/pca_parquet_results/pca-procesed-llm/logs/",
-      "--s3_output_md": "s3://ban-useast1-dev-pca-out-818667456472-b/pca-procesed-mds/md_full/",
-      "--s3_output_parquet": "s3://ban-useast1-dev-pca-out-818667456472-b/pca_parquet_results/pca-procesed-llm/parquet_files/",
-      "--s3_output_query": "s3://ban-useast1-dev-pca-out-818667456472-b/athena-queries/",
+      "--s3_agent_names": "",
+      "--s3_output_error_log": "",
+      "--s3_output_md": "",
+      "--s3_output_parquet": "/",
+      "--s3_output_query": "",
       "--similarity_threshold": "70"
     }
     tags = {
-      DataFlow = "pca"
+      DataFlow = ""
       Stage    = "extract"
     }
   }
@@ -139,36 +139,36 @@ glue_jobs = [
   # Configuración de desencadenadores (opcional)
 job_triggers = [
   {
-    name      = "daily-pca-anlized-job" # Nombre descriptivo para el trigger programado
+    name      = "" # Nombre descriptivo para el trigger programado
     type      = "SCHEDULED"
     schedule  = "cron(0 1 * * ? *)" # Se ejecuta diariamente a la 1:00 AM UTC
     enabled   = true
-    job_names = ["etl-job-pca-anlized"] # ¡IMPORTANTE! Debe coincidir con el 'name' de tu Glue Job.
+    job_names = [""] # ¡IMPORTANTE! Debe coincidir con el 'name' de tu Glue Job.
     timeout   = 120
     # Los triggers SCHEDULED no necesitan conditions
   },
   {
-    name      = "transform-fuzzy-nlp-after-pca" # Nombre descriptivo para el trigger condicional
+    name      = "" # Nombre descriptivo para el trigger condicional
     type      = "CONDITIONAL"
     enabled   = true
-    job_names = ["etl-job-generate-fuzzy-nlp"] #IMPORTANTE Debe coincidir con el 'name' de tu Glue Job.
+    job_names = [""] #IMPORTANTE Debe coincidir con el 'name' de tu Glue Job.
     timeout   = 120
     conditions = [
       {
-        job_name = "etl-job-pca-anlized" # El nombre del job que debe completarse primero
+        job_name = "" # El nombre del job que debe completarse primero
         state    = "SUCCEEDED"           # La condición: el job anterior debe haber sido exitoso
       }
     ]
   },
   {
-    name      = "load-llm-v2-after-fuzzy-nlp" # Nombre descriptivo para el trigger condicional
+    name      = "" # Nombre descriptivo para el trigger condicional
     type      = "CONDITIONAL"
     enabled   = true
-    job_names = ["etl-job-generate-llm_v2"]
+    job_names = [""]
     timeout   = 60
     conditions = [
       {
-        job_name = "etl-job-generate-fuzzy-nlp" # El nombre del job que debe completarse primero
+        job_name = "" # El nombre del job que debe completarse primero
         state    = "SUCCEEDED"                # La condición: el job anterior debe haber sido exitoso
       }
     ]
@@ -180,7 +180,7 @@ job_triggers = [
 
 | Nombre                        | Descripción                                                                                         | Tipo         | Valor por defecto | Requerido |
 | ----------------------------- | --------------------------------------------------------------------------------------------------- | ------------ | ----------------- | --------- |
-| region                    | AWS region donde se desplegarán los recursos                                                    | string       | -                 | sí        |
+| region                        | AWS region donde se desplegarán los recursos                                                        | string       | -                 | sí        |
 | account_id                    | ID de la cuenta de AWS                                                                              | string       | -                 | sí        |
 | prefix                        | Prefijo para nombrar los recursos                                                                   | string       | "glue"            | no        |
 | glue_job_role_name            | Nombre del rol IAM para los Glue Jobs                                                               | string       | "GlueJobRole"     | no        |
